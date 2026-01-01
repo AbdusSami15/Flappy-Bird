@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Flappy Bird Clone</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #111;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .wrap {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    canvas {
+      background: #7ad7ff;
+      border-radius: 12px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+      /* Prevent double-tap zoom / scroll on mobile */
+      touch-action: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <canvas id="game"></canvas>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
