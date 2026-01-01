@@ -2,35 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Flappy Bird Clone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0a0a1a" />
+  <title>Cyber Bird</title>
   <style>
-    html, body {
+    * {
       margin: 0;
       padding: 0;
-      height: 100%;
-      background: #111;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      -webkit-user-select: none;
-      user-select: none;
-      touch-action: manipulation;
-    }
-
-    .wrap {
-      height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 12px;
       box-sizing: border-box;
     }
 
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #050510;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(170, 0, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 0, 170, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top, 6px) 
+               env(safe-area-inset-right, 6px) 
+               env(safe-area-inset-bottom, 6px) 
+               env(safe-area-inset-left, 6px);
+    }
+
     canvas {
-      background: #7ad7ff;
-      border-radius: 12px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
-      /* Prevent double-tap zoom / scroll on mobile */
+      display: block;
+      border-radius: 4px;
+      box-shadow: 
+        0 0 0 2px rgba(0, 245, 255, 0.5),
+        0 0 30px rgba(0, 245, 255, 0.3),
+        0 0 60px rgba(0, 245, 255, 0.1),
+        inset 0 0 30px rgba(0, 0, 0, 0.5);
       touch-action: none;
+    }
+
+    /* Scanline effect overlay */
+    canvas::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      border-radius: 4px;
+    }
+
+    body {
+      overscroll-behavior: none;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
