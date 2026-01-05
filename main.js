@@ -832,8 +832,32 @@ function handleInput() {
   }
 }
 
+// Mute button hit area (in logical coordinates)
+const MUTE_BTN = {
+  x: LOGICAL_W - 65,  // left edge
+  y: 10,              // top edge
+  w: 50,              // width
+  h: 50               // height
+};
+
+function isMuteButtonClick(e) {
+  const rect = canvas.getBoundingClientRect();
+  const clickX = (e.clientX - rect.left) / canvasScale;
+  const clickY = (e.clientY - rect.top) / canvasScale;
+  
+  return clickX >= MUTE_BTN.x && clickX <= MUTE_BTN.x + MUTE_BTN.w &&
+         clickY >= MUTE_BTN.y && clickY <= MUTE_BTN.y + MUTE_BTN.h;
+}
+
 canvas.addEventListener("pointerdown", (e) => {
   e.preventDefault();
+  
+  // Check if mute button was clicked
+  if (isMuteButtonClick(e)) {
+    Audio.toggleMute();
+    return;
+  }
+  
   handleInput();
 }, { passive: false });
 
