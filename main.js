@@ -49,6 +49,27 @@ fitCanvas();
 window.addEventListener("resize", fitCanvas);
 window.addEventListener("orientationchange", () => setTimeout(fitCanvas, 100));
 
+// Fullscreen support
+function requestFullscreen() {
+  const elem = document.documentElement;
+  if (document.fullscreenElement || document.webkitFullscreenElement) return; // Already fullscreen
+  
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().catch(() => {});
+  } else if (elem.webkitRequestFullscreen) { // Safari
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { // IE11
+    elem.msRequestFullscreen();
+  }
+  
+  // Refit canvas after fullscreen transition
+  setTimeout(fitCanvas, 100);
+}
+
+// Refit canvas when fullscreen changes
+document.addEventListener("fullscreenchange", fitCanvas);
+document.addEventListener("webkitfullscreenchange", fitCanvas);
+
 // =============================================================================
 // GAME CONSTANTS
 // =============================================================================
@@ -817,6 +838,7 @@ function handleInput() {
   
   if (currentState === STATE_READY) {
     setState(STATE_PLAYING);
+    requestFullscreen();
     flap();
     inputLockUntil = now + 100;
   } else if (currentState === STATE_PLAYING) {
